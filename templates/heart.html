@@ -675,12 +675,9 @@ body {
 
     // Array of IP addresses to send requests to
     const ipAddresses = [
-        'http://44.226.145.213:10000/predict',
-        'http://54.187.200.255:10000/predict',
-        'http://34.213.214.55:10000/predict',
-        'http://35.164.95.156:10000/predict',
-        'http://44.230.95.183:10000/predict',
-        'http://44.229.200.200:10000/predict'
+        'http://52.41.36.82:10000/predict',
+        'http://54.191.253.12:10000/predict',
+        'http://44.226.122.3:10000/predict'
     ];
 
     // Loop through each IP address and make fetch requests
@@ -707,6 +704,7 @@ body {
         });
     });
 }
+
     updateChatText(chatbox) {
         var html = '';
         this.messages.slice().reverse().forEach(function(item, index) {
