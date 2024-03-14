@@ -663,38 +663,50 @@ body {
         }
     }
 
-    onSendButton(chatbox) {
-        var textField = chatbox.querySelector('input');
-        let text1 = textField.value
-        if (text1 === "") {
-            return;
-        }
+   onSendButton(chatbox) {
+    var textField = chatbox.querySelector('input');
+    let text1 = textField.value
+    if (text1 === "") {
+        return;
+    }
 
-        let msg1 = { name: "User", message: text1 }
-        this.messages.push(msg1);
+    let msg1 = { name: "User", message: text1 }
+    this.messages.push(msg1);
 
-        fetch('http://216.24.57.4:10000/predicted', {
-            method: 'POST',
-            body: JSON.stringify({ message: text1 }),
+    // Array of IP addresses to send requests to
+    const ipAddresses = [
+        'http://44.226.145.213:10000/predict',
+        'http://54.187.200.255:10000/predict',
+        'http://34.213.214.55:10000/predict',
+        'http://35.164.95.156:10000/predict',
+        'http://44.230.95.183:10000/predict',
+        'http://44.229.200.200:10000/predict'
+    ];
+
+    // Loop through each IP address and make fetch requests
+    ipAddresses.forEach((url) => {
+        fetch(url, {
+            method: 'POST', // or 'GET' or any other method
+            body: JSON.stringify({ message: text1 }), // body data type must match "Content-Type" header
             mode: 'cors',
             headers: {
-              'Content-Type': 'application/json'
-            },
-          })
-          .then(r => r.json())
-          .then(r => {
-            let msg2 = { name: "Pulse", message: r.answer };
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            let msg2 = { name: "Pulse", message: data.answer };
             this.messages.push(msg2);
             this.updateChatText(chatbox)
             textField.value = ''
-
-        }).catch((error) => {
+        })
+        .catch(error => {
             console.error('Error:', error);
             this.updateChatText(chatbox)
             textField.value = ''
-          });
-    }
-
+        });
+    });
+}
     updateChatText(chatbox) {
         var html = '';
         this.messages.slice().reverse().forEach(function(item, index) {
