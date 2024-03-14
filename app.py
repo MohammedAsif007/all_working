@@ -142,4 +142,4 @@ def predict():
     return render_template("result.html", result=responses)
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=10000, debug=True)
