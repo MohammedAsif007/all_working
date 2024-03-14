@@ -673,7 +673,7 @@ body {
         let msg1 = { name: "User", message: text1 }
         this.messages.push(msg1);
 
-        fetch('http://127.0.0.1:10000/predicted', {
+        fetch('http://216.24.57.4:10000/predicted', {
             method: 'POST',
             body: JSON.stringify({ message: text1 }),
             mode: 'cors',
